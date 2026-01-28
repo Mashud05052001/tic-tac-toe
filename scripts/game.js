@@ -68,11 +68,13 @@ document.addEventListener('DOMContentLoaded', function () {
             playerOName.textContent = settings.player2Name || 'Player 2';
             gameModeDisplay.textContent = 'Player vs Player';
             aiControls.style.display = 'none';
+            document.getElementById('aiStatus').parentElement.style.display = 'none';
         } else {
             playerXName.textContent = settings.player1Name || 'Player 1';
             playerOName.textContent = settings.aiName || 'AI Agent';
             gameModeDisplay.textContent = 'Player vs AI';
             aiControls.style.display = 'flex';
+            document.getElementById('aiStatus').parentElement.style.display = 'flex';
             aiNameDisplay.textContent = settings.aiName || 'AI Agent';
             aiDifficulty.textContent = settings.aiDifficulty ?
                 settings.aiDifficulty.charAt(0).toUpperCase() + settings.aiDifficulty.slice(1) : 'Medium';
@@ -748,6 +750,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
             localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
         });
+
+        // Toggle move history button
+        const toggleHistoryBtn = document.getElementById('toggleHistoryBtn');
+        const moveHistoryDiv = document.getElementById('moveHistory');
+
+        if (toggleHistoryBtn) {
+            toggleHistoryBtn.addEventListener('click', function () {
+                moveHistoryDiv.classList.toggle('collapsed');
+                toggleHistoryBtn.classList.toggle('collapsed');
+            });
+        }
 
         // Clear history button
         document.getElementById('clearHistoryBtn').addEventListener('click', function () {
