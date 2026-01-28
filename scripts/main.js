@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.remove('dark-theme');
         themeIcon.className = 'fas fa-sun';
         themeText.textContent = 'Light Mode';
+    } else {
+        document.body.classList.add('dark-theme');
+        themeIcon.className = 'fas fa-moon';
+        themeText.textContent = 'Dark Mode';
     }
 
     // Settings Panel

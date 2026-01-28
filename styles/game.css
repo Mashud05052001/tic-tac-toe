@@ -107,7 +107,7 @@
 
 .btn-settings,
 .btn-theme {
-  background: var(--bg-color);
+  background: var(--card-bg);
   color: var(--text-color);
   border: 1px solid var(--border-color);
   width: 50px;

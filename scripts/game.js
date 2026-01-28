@@ -42,6 +42,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // Load settings
     const settings = JSON.parse(localStorage.getItem('ultimateTicTacToeSettings')) || {};
 
+    // Load saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.classList.remove('dark-theme');
+        const themeBtn = document.getElementById('gameThemeToggle');
+        if (themeBtn) {
+            const themeIcon = themeBtn.querySelector('i');
+            themeIcon.className = 'fas fa-moon';
+        }
+    } else {
+        document.body.classList.add('dark-theme');
+        const themeBtn = document.getElementById('gameThemeToggle');
+        if (themeBtn) {
+            const themeIcon = themeBtn.querySelector('i');
+            themeIcon.className = 'fas fa-sun';
+        }
+    }
+
     // Initialize game
     function initGame() {
         // Set player names
@@ -718,7 +736,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Game theme toggle
         document.getElementById('gameThemeToggle').addEventListener('click', function () {
+            const themeIcon = this.querySelector('i');
             document.body.classList.toggle('dark-theme');
+
+            // Update icon based on theme
+            if (document.body.classList.contains('dark-theme')) {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+
             localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
         });
 
