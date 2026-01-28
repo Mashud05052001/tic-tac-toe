@@ -173,8 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
         makeMove(boardIndex, cellIndex);
     }
 
-    // Make a move
     function makeMove(boardIndex, cellIndex) {
+        // Prevent invalid moves
+        if (gameState.gameOver) return;
+        if (gameState.boards[boardIndex][cellIndex] !== '') return;
+
         // Update game state
         gameState.boards[boardIndex][cellIndex] = gameState.currentPlayer;
         gameState.moveCount++;
@@ -201,7 +204,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const nextBoard = cellIndex;
 
         // Check if next board is valid (not won and not full)
-        if (gameState.smallBoardStatus[nextBoard] === '' && !isBoardFull(nextBoard)) {
+        if (
+            gameState.smallBoardStatus[nextBoard] === '' &&
+            !isBoardFull(nextBoard)
+        ) {
             gameState.nextBoard = nextBoard;
         } else {
             gameState.nextBoard = -1; // Any board
@@ -210,32 +216,25 @@ document.addEventListener('DOMContentLoaded', function () {
         // Check if game is over
         checkGameOver();
 
-        if (!gameState.gameOver) {
-            // Switch player
-            gameState.currentPlayer = gameState.currentPlayer === 'X' ? 'O' : 'X';
-
-            // Update UI
-            updateGameInfo();
-            updateBoardHighlights();
-
-            // If it's AI's turn in PvE mode
-            if (gameState.mode === 'pve' && gameState.currentPlayer === 'O') {
-                // Show AI thinking
-                aiThinkingSpan.textContent = 'Yes';
-                gameState.aiThinking = true;
-
-                // AI makes a move after a short delay
-                setTimeout(() => {
-                    makeAIMove();
-                    gameState.aiThinking = false;
-                    aiThinkingSpan.textContent = 'No';
-                }, 800);
-            }
-        } else {
-            // Game over
+        // If game ended, show modal and stop
+        if (gameState.gameOver) {
             showGameOverModal();
+            return;
+        }
+
+        // Switch player
+        gameState.currentPlayer = gameState.currentPlayer === 'X' ? 'O' : 'X';
+
+        // Update UI
+        updateGameInfo();
+        updateBoardHighlights();
+
+        // AI turn (PvE only) - make move immediately (no thinking delay)
+        if (gameState.mode === 'pve' && gameState.currentPlayer === 'O') {
+            makeAIMove();
         }
     }
+
 
     // Update cell in UI
     function updateCell(boardIndex, cellIndex) {
@@ -417,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.querySelector('.player-o').classList.remove('active');
         } else {
             playerXStatus.textContent = 'Waiting';
-            playerOStatus.textContent = gameState.mode === 'pvp' ? 'Your Turn' : 'AI Thinking';
+            playerOStatus.textContent = gameState.mode === 'pvp' ? 'Your Turn' : 'AI Turn';
             document.querySelector('.player-x').classList.remove('active');
             document.querySelector('.player-o').classList.add('active');
         }
@@ -530,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // AI move logic (simplified - will be enhanced in ai.js)
     function makeAIMove() {
-        if (gameState.gameOver || gameState.aiThinking) return;
+        if (gameState.gameOver) return;
 
         // Get all possible moves
         const possibleMoves = [];
@@ -629,11 +628,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Make the AI move
+        // Make the AI move immediately
         if (move) {
-            setTimeout(() => {
-                makeMove(move.boardIndex, move.cellIndex);
-            }, 500);
+            makeMove(move.boardIndex, move.cellIndex);
         }
     }
 
@@ -737,7 +734,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // AI move button (force AI to make a move)
         if (aiMoveBtn) {
             aiMoveBtn.addEventListener('click', function () {
-                if (gameState.mode === 'pve' && gameState.currentPlayer === 'O' && !gameState.gameOver && !gameState.aiThinking) {
+                if (gameState.mode === 'pve' && gameState.currentPlayer === 'O' && !gameState.gameOver) {
                     makeAIMove();
                 }
             });
@@ -922,7 +919,6 @@ document.addEventListener('DOMContentLoaded', function () {
         gameState.winner = '';
         gameState.moveCount = 0;
         gameState.aiThinking = false;
-        aiThinkingSpan.textContent = 'No';
 
         // Clear move history
         gameState.moveHistory = [];
