@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Tic-Tac-Toe | AI Lab Project</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark-theme">
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <h1>Ultimate <span>Tic-Tac-Toe</span></h1>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>Challenge the <span class="ai-text">AI</span> or Play with a Friend</h2>
+                    <p>Experience the ultimate version of Tic-Tac-Toe with 9 interconnected boards.
+                        Master the strategy to win three small boards in a row on the large board!</p>
+                    <div class="game-preview">
+                        <div class="board-preview">
+                            <div class="board-row">
+                                <div class="small-board active">
+                                    <div class="cell x">X</div>
+                                    <div class="cell"></div>
+                                    <div class="cell o">O</div>
+                                    <div class="cell"></div>
+                                    <div class="cell x">X</div>
+                                    <div class="cell"></div>
+                                    <div class="cell o">O</div>
+                                    <div class="cell"></div>
+                                    <div class="cell"></div>
+                                </div>
+                                <div class="small-board">
+                                    <div class="cell"></div>
+                                    <div class="cell o">O</div>
+                                    <div class="cell"></div>
+                                    <div class="cell"></div>
+                                    <div class="cell x">X</div>
+                                    <div class="cell"></div>
+                                    <div class="cell"></div>
+                                    <div class="cell"></div>
+                                    <div class="cell"></div>
+                                </div>
+                                <div class="small-board won x-won">
+                                    <div class="cell x">X</div>
+                                    <div class="cell x">X</div>
+                                    <div class="cell x">X</div>
+                                    <div class="cell"></div>
+                                    <div class="cell o">O</div>
+                                    <div class="cell"></div>
+                                    <div class="cell"></div>
+                                    <div class="cell o">O</div>
+                                    <div class="cell"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="game-modes">
+                <h2>Choose Your Mode</h2>
+                <div class="mode-cards">
+                    <div class="mode-card" id="pvpMode">
+                        <div class="mode-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Player vs Player</h3>
+                        <p>Play locally with a friend on the same device. Take turns and see who's the ultimate
+                            champion!</p>
+                        <button class="btn-play">Play Now</button>
+                    </div>
+                    <div class="mode-card featured" id="pveMode">
+                        <div class="mode-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Player vs AI</h3>
+                        <p>Challenge our intelligent AI agent with customizable difficulty levels. Can you beat the
+                            algorithm?</p>
+                        <button class="btn-play">Play Now</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="settings-panel" id="settingsPanel">
+                <div class="settings-header">
+                    <h2><i class="fas fa-cog"></i> Game Settings</h2>
+                    <button class="btn-close-settings"><i class="fas fa-times"></i></button>
+                </div>
+
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <h3><i class="fas fa-user"></i> Player Names</h3>
+                        <div class="input-group">
+                            <label for="player1Name">Player 1 (X)</label>
+                            <input type="text" id="player1Name" value="Player 1">
+                        </div>
+                        <div class="input-group">
+                            <label for="player2Name">Player 2 (O)</label>
+                            <input type="text" id="player2Name" value="Player 2">
+                        </div>
+                        <div class="input-group" id="aiNameGroup">
+                            <label for="aiName">AI Name</label>
+                            <input type="text" id="aiName" value="AI Agent">
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3><i class="fas fa-brain"></i> AI Difficulty</h3>
+                        <div class="difficulty-levels">
+                            <div class="difficulty-option" data-level="easy">
+                                <input type="radio" id="difficultyEasy" name="difficulty" value="easy" checked>
+                                <label for="difficultyEasy">
+                                    <span class="difficulty-label">Easy</span>
+                                    <span class="difficulty-desc">Random moves with basic logic</span>
+                                </label>
+                            </div>
+                            <div class="difficulty-option" data-level="medium">
+                                <input type="radio" id="difficultyMedium" name="difficulty" value="medium">
+                                <label for="difficultyMedium">
+                                    <span class="difficulty-label">Medium</span>
+                                    <span class="difficulty-desc">Minimax with limited depth</span>
+                                </label>
+                            </div>
+                            <div class="difficulty-option" data-level="hard">
+                                <input type="radio" id="difficultyHard" name="difficulty" value="hard">
+                                <label for="difficultyHard">
+                                    <span class="difficulty-label">Hard</span>
+                                    <span class="difficulty-desc">Minimax with Alpha-Beta pruning</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3><i class="fas fa-gamepad"></i> Game Options</h3>
+                        <div class="toggle-group">
+                            <div class="toggle-option">
+                                <span>Highlight valid moves</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="highlightMoves" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-option">
+                                <span>Show move hints</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="showHints">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-option">
+                                <span>Animation effects</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="animations" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-option">
+                                <span>Sound effects</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="soundEffects" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <h3><i class="fas fa-palette"></i> Theme Colors</h3>
+                        <div class="color-palette">
+                            <div class="color-option" data-color="default" style="background-color: #6a11cb;"></div>
+                            <div class="color-option" data-color="green" style="background-color: #00b09b;"></div>
+                            <div class="color-option" data-color="blue" style="background-color: #2575fc;"></div>
+                            <div class="color-option" data-color="red" style="background-color: #ff416c;"></div>
+                            <div class="color-option" data-color="orange" style="background-color: #ff7e5f;"></div>
+                            <div class="color-option" data-color="purple" style="background-color: #8a2be2;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-footer">
+                    <button class="btn-save" id="saveSettings">Save Settings</button>
+                    <button class="btn-reset" id="resetSettings">Reset to Default</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p><i class="fas fa-graduation-cap"></i> CSE 704 - Artificial Intelligence Sessional</p>
+                    <p>Build an AI Agent for Ultimate Tic-Tac-Toe</p>
+                </div>
+                <div class="footer-actions">
+                    <button class="btn-settings" id="openSettings">
+                        <i class="fas fa-sliders-h"></i> Settings
+                    </button>
+                    <button class="btn-help" id="openHelp">
+                        <i class="fas fa-question-circle"></i> How to Play
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal" id="helpModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-question-circle"></i> How to Play Ultimate Tic-Tac-Toe</h2>
+                <button class="btn-close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="rules">
+                    <h3>Game Rules:</h3>
+                    <ul>
+                        <li>The game consists of 9 small Tic-Tac-Toe boards arranged in a 3×3 large board.</li>
+                        <li>Winning a small board follows normal Tic-Tac-Toe rules (3 in a row).</li>
+                        <li>To win the game, you must win 3 small boards in a row on the large board.</li>
+                        <li>The cell you play determines which small board your opponent must play in next.</li>
+                        <li>If that board is already full or won, your opponent may choose any available board.</li>
+                    </ul>
+
+                    <h3>Strategy Tips:</h3>
+                    <ul>
+                        <li>Focus on both winning small boards and controlling where your opponent can play.</li>
+                        <li>Try to send your opponent to boards you've already won or that are disadvantageous for them.
+                        </li>
+                        <li>Think ahead - consider not just your immediate move but also where it will force your
+                            opponent to play next.</li>
+                    </ul>
+
+                    <div class="rule-example">
+                        <div class="example-board">
+                            <div class="cell">1</div>
+                            <div class="cell">2</div>
+                            <div class="cell">3</div>
+                            <div class="cell">4</div>
+                            <div class="cell">5</div>
+                            <div class="cell">6</div>
+                            <div class="cell">7</div>
+                            <div class="cell">8</div>
+                            <div class="cell">9</div>
+                        </div>
+                        <div class="example-text">
+                            <p><strong>Example:</strong> If you play in cell 5 of a small board, your opponent's next
+                                move must be in small board 5.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-close-modal">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

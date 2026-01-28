@@ -1,0 +1,67 @@
+
+## How to Play
+
+### Game Rules
+1. The game consists of 9 small Tic-Tac-Toe boards arranged in a 3×3 large board.
+2. Winning a small board follows normal Tic-Tac-Toe rules (3 in a row).
+3. To win the game, you must win 3 small boards in a row on the large board.
+4. The cell you play determines which small board your opponent must play in next.
+5. If that board is already full or won, your opponent may choose any available board.
+
+### Strategy Tips
+- Focus on both winning small boards and controlling where your opponent can play.
+- Try to send your opponent to boards you've already won or that are disadvantageous for them.
+- Think ahead - consider not just your immediate move but also where it will force your opponent to play next.
+
+## Technologies Used
+- HTML5, CSS3, JavaScript (ES6+)
+- Font Awesome for icons
+- Google Fonts (Poppins, Orbitron)
+- CSS Grid and Flexbox for layouts
+- Local Storage for saving settings and game state
+
+## Deployment
+
+This is a static web application that can be deployed on any web hosting service:
+
+### Simple Deployment Options
+1. **GitHub Pages**: Upload to a GitHub repository and enable GitHub Pages
+2. **Netlify**: Drag and drop the folder to Netlify
+3. **Vercel**: Connect your GitHub repository
+4. **Any static hosting**: The project requires no backend server
+
+### Steps for Deployment
+1. Upload all project files to your hosting service
+2. Ensure the file structure is maintained
+3. Access via the provided URL
+
+## Development
+
+To run locally:
+1. Clone or download the project
+2. Open `index.html` in a modern web browser
+3. No build process or dependencies required
+
+## AI Implementation
+
+The AI uses the Minimax algorithm with Alpha-Beta pruning:
+- **Easy**: Depth 1 search with random elements
+- **Medium**: Depth 3 search with evaluation function
+- **Hard**: Depth 5 search with Alpha-Beta pruning
+
+The evaluation function considers:
+- Small boards won
+- Potential winning lines
+- Center and corner control
+- Strategic board positioning
+
+## Credits
+
+Created as a project for CSE 704 - Artificial Intelligence Sessional
+- Course: Artificial Intelligence Sessional
+- Project: Build an AI Agent for Ultimate Tic-Tac-Toe
+- Implementation: Complete web application with interactive interface
+
+## License
+
+This project is for educational purposes. Feel free to modify and distribute.
