@@ -229,9 +229,18 @@ document.addEventListener('DOMContentLoaded', function () {
         updateGameInfo();
         updateBoardHighlights();
 
-        // AI turn (PvE only) - make move immediately (no thinking delay)
+        // AI turn (PvE only) - add 200ms thinking delay
         if (gameState.mode === 'pve' && gameState.currentPlayer === 'O') {
-            makeAIMove();
+            // Show AI thinking indicator
+            gameState.aiThinking = true;
+            aiThinkingSpan.textContent = 'Yes';
+
+            // Wait 200ms then execute AI move
+            setTimeout(() => {
+                makeAIMove();
+                gameState.aiThinking = false;
+                aiThinkingSpan.textContent = 'No';
+            }, 200);
         }
     }
 
